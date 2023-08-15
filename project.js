@@ -90,8 +90,8 @@ const transpose = (reels) => {
 };
 const transposedRows = transpose(reels);
 
-console.log(reels);
-console.log(transposedRows);
+//console.log(reels);
+//console.log(transposedRows);
 
 return transposedRows;
 };
@@ -110,13 +110,37 @@ const printResults = (rows) => {
     }
 };     
 
+const getPrize = (transposedRows,numberBet, numberOfLines) => {
+let winnings = 0;
 
-    
+for (let row = 0; row < numberOfLines; row++) {
+        const symbols =  transposedRows[row];
 
+        let allSame = true;
+
+        for (const symbol of symbols) {
+                if (symbol !== symbol [1]) {
+                        allSame = false;
+                        break;
+                }
+        }
+
+        if (allSame) {
+                winnings += numberBet * SYMBOL_MULTIPLIER[symbols[1]]
+        }
+}
+        return winnings;
+};
 
 const numberDepositAmount = deposit();
 
 console.log("$" + numberDepositAmount);
+    
+let balance = numberDepositAmount;
+
+const game = () => {
+
+while (true) {
 
 const numberOfLines = lines();
 
@@ -129,8 +153,6 @@ if (linesAmount===1) {
 } else {
 console.log(linesAmount + " Lines");
 }
-
-let balance = numberDepositAmount;
 const getBet = (balance, lines) => {
         while (true) {
         const betAmount = prompt ("Enter your bet per line: ");
@@ -146,11 +168,30 @@ const getBet = (balance, lines) => {
 
 
 const numberBet = getBet(balance, numberOfLines);
-console.log("u just bet $" + (numberBet * numberOfLines));
+balance -= numberBet * numberOfLines;
 
+console.log("u just bet $" + (numberBet * numberOfLines));
 
 const transposedRows = spin();
 printResults(transposedRows);
+const winnings = getPrize (transposedRows, numberBet, numberOfLines)
+balance += winnings;
+console.log("You won, $" +winnings)
+
+console.log("you have a balance of $" + balance)
+
+if (balance <= 0) {
+        console.log ("you're outta cash partner!")
+        break;
+}
+
+const playAgain = prompt ("Do you want to play again?(Y/N)")
+
+if (playAgain !== "Y" && playAgain !== "y") break; 
+
+}
+}
+game ();
 //Model
 //View
 //Controller
