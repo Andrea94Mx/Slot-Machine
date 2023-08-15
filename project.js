@@ -76,8 +76,27 @@ const randomIndex = Math.floor(Math.random() * reelSymbols.length);
         reelSymbols.splice(randomIndex, 1);
 }
 }
-console.log(reels);
+
+const transpose = (reels) => {
+        const rows = [];
+
+        for (let i=0; i< ROWS; i++) {
+                rows.push([]);
+                for (let j=0; j<COLS; j++){
+                        rows[i].push(reels[j][i]);
+                }
+        };
+        return rows;
 };
+const transposedRows = transpose(reels);
+
+console.log(reels);
+console.log(transposedRows);
+               
+};     
+
+
+
 
 const numberDepositAmount = deposit();
 
@@ -113,10 +132,8 @@ const getBet = (balance, lines) => {
 const numberBet = getBet(balance, numberOfLines);
 console.log("u just bet $" + (numberBet * numberOfLines));
 
+
 spin();
-
-
-
 //Model
 //View
 //Controller
