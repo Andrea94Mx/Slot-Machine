@@ -180,3 +180,5 @@ if (playAgain !== "Y" && playAgain !== "y") break;
 }
 }
 game ();
+
+//prompt is used in node.js only if I wanna connect it to html I have to 
