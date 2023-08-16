@@ -23,11 +23,3 @@ body{
     flex-direction: row;
 
 }
-.spinning {
-  animation: spin 1s linear infinite;
-}
-    
- @keyframes spin {
- 0% { transform: translateY(0); }
- 100% { transform: translateY(-100%); }
-}
