@@ -18,6 +18,11 @@ body{
     margin: auto;
 }
 
+.machine-container{
+    display: flex;
+    flex-direction: row;
+
+}
 .spinning {
   animation: spin 1s linear infinite;
 }
