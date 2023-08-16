@@ -46,6 +46,7 @@ const lines = () => {
 };
 
 const spin = () => {
+
         const symbols = [];
         for  (const [symbol, howmany] of Object.entries(SYMBOLS_HOWMANY)){
                 for (let i = 0; i < howmany; i++){
@@ -73,16 +74,39 @@ const transpose = (reels) => {
                 rows.push([]);
                 for (let j=0; j<COLS; j++){
                         rows[i].push(reels[j][i]);
+
+                        for (let j = 0; j < ROWS; j++) {
+                                const randomIndex = Math.floor(Math.random() * reelSymbols.length);
+                                const selectedSymbol = reelSymbols[randomIndex];
+                                reels[i].push(selectedSymbol);
+                                reelSymbols.splice(randomIndex, 1);
+                        
+                                const reelContainer = document.getElementById(`reel${i + 1}`);
+                                reelContainer.innerHTML = ""; // Clear previous symbols
+                        
+                                const symbolElement = document.createElement("div");
+                                symbolElement.classList.add("slot-symbol", "spinning");
+                                symbolElement.style.backgroundPosition = `0 ${-SYMBOL_HEIGHT * randomIndex}px`; // Adjust based on your sprite layout
+                                reelContainer.appendChild(symbolElement);
+
                 }
         };
         return rows;
+
+        
 };
 const transposedRows = transpose(reels);
+
+const spinningElements = document.querySelectorAll(".spinning");
+    spinningElements.forEach((element, index) => {
+        element.style.animationDuration = `${1 + index / 10}s`; // Adjust the animation speed
+    });
 
 //console.log(reels);
 //console.log(transposedRows);
 
 return transposedRows;
+
 };
 
 const printResults = (rows) => {

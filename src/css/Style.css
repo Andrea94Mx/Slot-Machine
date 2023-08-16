@@ -1,0 +1,28 @@
+body{
+    background-color: #f4547c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleBanner {
+    width: 600px;
+    height: auto;
+}
+
+.machine {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+    
+ @keyframes spin {
+ 0% { transform: translateY(0); }
+ 100% { transform: translateY(-100%); }
+}
