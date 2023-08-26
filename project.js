@@ -187,19 +187,16 @@ document.addEventListener("DOMContentLoaded", () => {
         step = 1; // Move to spin step
         promptText.innerHTML = "Pick your lines again cowboy!";
         depositInput.value = ""; // Clear the input field
+        depositInput.style.display = "inline"; // Show the input
+        depositButton.style.display = "inline"; // Show the button
+        
+
     } else {
+        promptText.innerHTML = "See ya later, partner!" + "<br>Reload the page to play again";
         step = 5;
+        depositInput.style.display = "none"; // Hide the input
+        depositButton.style.display = "none"; // Hide the button
     }
-
-
-} else if (step === 5) {
-       promptText.innerHTML = "See ya later, partner!";
-        const hideInput = document.getElementById("depositInput");
-                depositInput.style.display = "none"; // Hide the input temporarily
-
-        const hideButton = document.getElementById("depositButton");
-                hideButton.style.display = "none"; // Hide the input temporarily
-
             }
 
 
