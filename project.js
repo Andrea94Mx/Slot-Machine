@@ -1,90 +1,119 @@
-const prompt = require("prompt-sync")();
+document.addEventListener("DOMContentLoaded", () => {
 
-const ROWS = 3;
-const COLS = 3;
+    const ROWS = 3;
+    const COLS = 3;
 
-const SYMBOLS_HOWMANY = {
+    const SYMBOLS_HOWMANY = {
         "A": 2,
         "B": 4,
         "C": 6,
         "D": 8
-}
-
-const SYMBOL_MULTIPLIER = {
+    };
+    
+    const SYMBOL_MULTIPLIER = {
         "A": 5,
         "B": 4,
         "C": 3,
         "D": 2
+    };
+    
+    const depositButton = document.getElementById("depositButton");
+    const depositInput = document.getElementById("depositInput");
+    const promptText = document.getElementById("promptText");
 
-}
+    let depositAmount = 0;
+    let numberOfLines = 0;
+    let step = 0; // Keeps track of the current step in the process
 
-const deposit = () => { 
-        while (true) {
-        const depositAmount = prompt("Insert Coins: ");
-        const numberDepositAmount = parseInt(depositAmount);
+    depositButton.addEventListener("click", () => {
+    /*step 0 ---------------------------------------------------------------------*/
+        if (step === 0) {
+            depositAmount = parseInt(depositInput.value);
+            if (isNaN(depositAmount) || depositAmount <= 0) {
+                promptText.innerHTML = "Invalid deposit amount, try again";
+                depositInput.value = ""; // Clear the input field
+            } else {
+                promptText.innerHTML = "You deposited $" + depositAmount + "<br>Pick your lines, cowboy!";
+                step = 1; // Move to the next step
+                depositInput.value = ""; // Clear the input field
+            }
+    /*step 1 ---------------------------------------------------------------------*/
+        } else if (step === 1) {
+            numberOfLines = parseInt(depositInput.value);
+            if (isNaN(numberOfLines) || numberOfLines < 1 || numberOfLines > 3) {
+                promptText.textContent = "Invalid number of lines, try a number between 1 and 3";
+                depositInput.value = ""; // Clear the input field
+            } else {
+                const linesMessage = numberOfLines === 1 ? "1 line" : numberOfLines + " lines";
+                promptText.innerHTML = linesMessage + "<br>Enter your bet per line:";
+                step = 2; // Move to the next step
+                depositInput.value = ""; // Clear the input field
+            }
+    /*step 2 ---------------------------------------------------------------------*/
+        } else if (step === 2) { // Added this condition
+            const betPerLine = parseFloat(depositInput.value);
+    
+            if (isNaN(betPerLine) || betPerLine <= 0 || (betPerLine * numberOfLines) > depositAmount) {
+                promptText.textContent = "Invalid bet amount, try again";
+                depositInput.value = ""; // Clear the input field
+            } else {
+                const totalBetAmount = (betPerLine * numberOfLines).toFixed(2);
+                step = 3;
+
+
+
+                promptText.innerHTML = "Betting $" + totalBetAmount + "<br>CLICK 'ENTER' TO SPIN";
+
+                const hideInput = document.getElementById("depositInput");
+                depositInput.style.display = "none"; // Hide the input temporarily
+            }
+    /*step 3 ---------------------------------------------------------------------*/
+            } else if (step === 3) {
+  
+            const betPerLine = parseFloat(depositInput.value);
+            promptText.innerHTML = "";
+
+           const spin = () => {
+            const symbols = [];10
+            for  (const [symbol, howmany] of Object.entries(SYMBOLS_HOWMANY)){
+                    for (let i = 0; i < howmany; i++){
+                    symbols.push(symbol);
+                    
+            }
+        }
+        const reels = [];
         
-        if (isNaN(numberDepositAmount)|| numberDepositAmount<=0) {
-                console.log("Invalid deposit amount, try again");
-        } else {
-                return numberDepositAmount;
+        for (let i=0; i<COLS; i++) {
+            reels.push([]);
+            const reelSymbols = [...symbols];
+        for (let j=0; j<ROWS; j++) {
+        const randomIndex = Math.floor(Math.random() * reelSymbols.length);
+            const selectedSymbol = reelSymbols[randomIndex];
+            reels[i].push(selectedSymbol);
+            reelSymbols.splice(randomIndex, 1);
         }
         }
-};
-
-const lines = () => {
-        while (true) {
-        const linesAmount = prompt ("Pick your lines, cowboy! ");
-        const numberOfLines = parseInt(linesAmount);
         
-        if (isNaN(numberOfLines)|| numberOfLines<=0 || numberOfLines > 3) {
-                console.log("Invalid number of lines, try a number between 1-3");
-        } else {
-                return numberOfLines;
-        }}
-
-};
-
-const spin = () => {
-        const symbols = [];
-        for  (const [symbol, howmany] of Object.entries(SYMBOLS_HOWMANY)){
-                for (let i = 0; i < howmany; i++){
-                symbols.push(symbol);
-                
-        }
-}
-const reels = [];
-
-for (let i=0; i<COLS; i++) {
-        reels.push([]);
-        const reelSymbols = [...symbols];
-for (let j=0; j<ROWS; j++) {
-const randomIndex = Math.floor(Math.random() * reelSymbols.length);
-        const selectedSymbol = reelSymbols[randomIndex];
-        reels[i].push(selectedSymbol);
-        reelSymbols.splice(randomIndex, 1);
-}
-}
-
-const transpose = (reels) => {
-        const rows = [];
-
-        for (let i=0; i< ROWS; i++) {
-                rows.push([]);
-                for (let j=0; j<COLS; j++){
-                        rows[i].push(reels[j][i]);
-                }
+        const transpose = (reels) => {
+            const rows = [];
+        
+            for (let i=0; i< ROWS; i++) {
+                    rows.push([]);
+                    for (let j=0; j<COLS; j++){
+                            rows[i].push(reels[j][i]);
+                    }
+            };
+            return rows;
         };
-        return rows;
-};
-const transposedRows = transpose(reels);
-
-//console.log(reels);
-//console.log(transposedRows);
-
-return transposedRows;
-};
-
-const printResults = (rows) => {
+        const transposedRows = transpose(reels);
+    
+        
+        return transposedRows;
+        };
+        
+        const printResults = (rows) => {
+        let resultsHTML = '';
+        
         for (const row of rows) {
             let rowString = "";
             for (const [i, symbol] of row.entries()){
@@ -93,92 +122,86 @@ const printResults = (rows) => {
                     rowString += " | ";
                 }  
             }
-            console.log(rowString);  
+                resultsHTML += rowString + '<br>'; 
+        }
         
+        ReelsDisplay.innerHTML = resultsHTML; 
+         
+        
+        };     
+        
+        const getPrize = (transposedRows,numberBet, numberOfLines) => {
+        let winnings = 0;
+        
+        for (let row = 0; row < numberOfLines; row++) {
+            const symbols =  transposedRows[row];
+        
+            let allSame = true;
+        
+            for (const symbol of symbols) {
+                    if (symbol !== symbol [1]) {
+                            allSame = false;
+                            break;
+                    }
+            }
+        
+            if (allSame) {
+                    winnings += numberBet * SYMBOL_MULTIPLIER[symbols[1]]
+            }
+        }
+            return winnings;
+        };
+        /*logic for spin ------------------------------------------------------*/
+        
+        
+        
+                        const transposedRows = spin();
+                        printResults(transposedRows);
+                        const winnings = getPrize(transposedRows, betPerLine, numberOfLines);
+                        const betAmount = betPerLine * numberOfLines;
+
+                        // Deduct the total bet amount from the deposit
+                        depositAmount -= betAmount;
+                        
+
+                        depositAmount += winnings; // Update the balance
+                        promptText.innerHTML = "You won, $" + winnings + "<br>you have a balance of $" + depositAmount +"<br>Click ENTER to continue";
+                        depositInput.value = "";
+                        step = 4;
+/*step 4 ---------------------------------------------------------------------*/
+
+} else if (step === 4) {
+    const hideInput = document.getElementById("depositInput");
+    depositInput.style.display = "inline"; // unhides the text input
+    ReelsDisplay.innerHTML = "";
+    console.log("this is the step where I check if ur outta cash or if u wanna play again");
+    if (depositAmount <= 0) {
+        promptText.innerHTML = "You're outta cash, partner!";
+    } else {
+        promptText.innerHTML = "Do you wanna play again? (Y/N)";
+        step = 4.5; 
+        depositInput.value = ""; // Clear the input field
     }
-};     
+} else if (step === 4.5) {
+    if (depositInput.value === "Y") {
+        step = 1; // Move to spin step
+        promptText.innerHTML = "Pick your lines again cowboy!";
+        depositInput.value = "";
+    } else {
+        promptText.innerHTML = "See ya later, partner!";}
+        const hideInput = document.getElementById("depositInput");
+                depositInput.style.display = "none"; // Hide the input temporarily
 
-const getPrize = (transposedRows,numberBet, numberOfLines) => {
-let winnings = 0;
+        const hideButton = document.getElementById("depositButton");
+                hideButton.style.display = "none"; // Hide the input temporarily
 
-for (let row = 0; row < numberOfLines; row++) {
-        const symbols =  transposedRows[row];
+                          /* Reset the step and input field
+                          step = 0;
+                          depositInput.value = ""; */
 
-        let allSame = true;
+            }
 
-        for (const symbol of symbols) {
-                if (symbol !== symbol [1]) {
-                        allSame = false;
-                        break;
-                }
-        }
 
-        if (allSame) {
-                winnings += numberBet * SYMBOL_MULTIPLIER[symbols[1]]
-        }
-}
-        return winnings;
-};
-
-const numberDepositAmount = deposit();
-
-console.log("$" + numberDepositAmount);
+    });
     
-let balance = numberDepositAmount;
-
-const game = () => {
-
-while (true) {
-
-const numberOfLines = lines();
-
-const linesAmount = numberOfLines
-
-
-if (linesAmount===1) {
-        console.log(linesAmount + " Line");
-
-} else {
-console.log(linesAmount + " Lines");
-}
-const getBet = (balance, lines) => {
-        while (true) {
-        const betAmount = prompt ("Enter your bet per line: ");
-        const numberBet = parseInt(betAmount);
-
-        if (isNaN(numberBet)|| numberBet > balance || numberBet <= 0 || numberBet > (balance / numberOfLines)) {
-                console.log("Invalid bet buddy, try again");
-        } else {
-                return numberBet;
-        }}
-
-}
-
-
-const numberBet = getBet(balance, numberOfLines);
-balance -= numberBet * numberOfLines;
-
-console.log("u just bet $" + (numberBet * numberOfLines));
-
-const transposedRows = spin();
-printResults(transposedRows);
-const winnings = getPrize (transposedRows, numberBet, numberOfLines)
-balance += winnings;
-console.log("You won, $" +winnings)
-
-console.log("you have a balance of $" + balance)
-
-if (balance <= 0) {
-        console.log ("you're outta cash partner!")
-        break;
-}
-
-const playAgain = prompt ("Do you want to play again?(Y/N)")
-
-if (playAgain !== "Y" && playAgain !== "y") break; 
-
-}
-}
-game ();
-
-//prompt is used in node.js only if I wanna connect it to html I have to 
+});

@@ -18,7 +18,7 @@ body{
     margin: auto;
 }
 
-.machine-container{
+.container{
     display: flex;
     flex-direction: row;
 
