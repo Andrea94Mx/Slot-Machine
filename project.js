@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 promptText.innerHTML = "Betting $" + totalBetAmount + "<br>CLICK 'ENTER' TO SPIN";
 
                 const hideInput = document.getElementById("depositInput");
-                depositInput.style.display = "none"; // Hide the input temporarily
+                depositInput.style.visibility = "hidden"; // Hide the input temporarily
             }
     /*step 3 ---------------------------------------------------------------------*/
             } else if (step === 3) {
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 } else if (step === 4) {
     const hideInput = document.getElementById("depositInput");
-    depositInput.style.display = "inline"; // unhides the text input
+    depositInput.style.visibility = "visible"; // unhides the text input
     ReelsDisplay.innerHTML = "";
     console.log("this is the step where I check if ur outta cash or if u wanna play again");
     if (depositAmount <= 0) {
@@ -183,21 +183,33 @@ document.addEventListener("DOMContentLoaded", () => {
         depositInput.value = ""; // Clear the input field
     }
 } else if (step === 4.5) {
-    if (depositInput.value === "Y") {
+    if (depositInput.value === "Y"||depositInput.value === "y") {
         step = 1; // Move to spin step
         promptText.innerHTML = "Pick your lines again cowboy!";
         depositInput.value = ""; // Clear the input field
-        depositInput.style.display = "inline"; // Show the input
-        depositButton.style.display = "inline"; // Show the button
+        depositInput.style.visibility = "visible"; // Show the input
+        depositButton.style.visibility = "visible"; // Show the button
         
 
     } else {
-        promptText.innerHTML = "See ya later, partner!" + "<br>Reload the page to play again";
-        step = 5;
-        depositInput.style.display = "none"; // Hide the input
-        depositButton.style.display = "none"; // Hide the button
+        promptText.innerHTML = "See ya later, partner!" + "<br>Press enter to play again";
+        step = 6;
+        depositInput.style.visibility = "hidden";
     }
+
+        
+  }  else if (step === 6) { 
+                promptText.innerHTML = "Whatcha going to deposit this time?"
+                step = 0;
+                depositInput.style.visibility = "visible"; 
+                depositButton.style.visibility = "visible"; 
+                depositInput.value = ""; 
             }
+
+
+
+    
+            
 
 
     });

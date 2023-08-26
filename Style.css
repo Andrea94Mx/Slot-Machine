@@ -7,19 +7,67 @@ body{
 }
 
 .titleBanner {
+    display: block;
     width: 600px;
     height: auto;
 }
 
-.machine {
-    display: block;
-    max-width: 80%;
-    height: auto;
-    margin: auto;
-}
-
-.container{
+.Container{
+    margin-top: 3px;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+}
+
+.display-box{
+    display: block;
+    text-align: center;
+    height: auto; 
+    overflow: hidden; 
 
 }
+
+.display {
+    height: 250px; 
+    display: flex; /* Use flexbox for text centering */
+    justify-content: center;
+    align-items: center;
+}
+
+.promptBox {
+    margin-top: 36px;
+    height: 70px;
+    font-size: 15px; 
+    font-weight: bold;
+}
+
+#depositInput{
+    width: 142px;
+    height: 37px;
+    margin-top: 5px;
+    margin-right: 14px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#depositButton{
+    width: 142px;
+    height: 37px;
+    margin-top: 5px;
+    margin-right: 14px;
+background-color: red;
+}
+
+#ReelsDisplay {
+    margin-top: 47px;
+    font-size: 73px; 
+}
+
+.background-container {
+    /* Other styling properties */
+    width: 399px;
+    height: 450px;
+    background-image: url('imgs/BG_IMGV1.png');
+    background-size: cover;
+}
+
+
+
