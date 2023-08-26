@@ -186,18 +186,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (depositInput.value === "Y") {
         step = 1; // Move to spin step
         promptText.innerHTML = "Pick your lines again cowboy!";
-        depositInput.value = "";
+        depositInput.value = ""; // Clear the input field
     } else {
-        promptText.innerHTML = "See ya later, partner!";}
+        step = 5;
+    }
+
+
+} else if (step === 5) {
+       promptText.innerHTML = "See ya later, partner!";
         const hideInput = document.getElementById("depositInput");
                 depositInput.style.display = "none"; // Hide the input temporarily
 
         const hideButton = document.getElementById("depositButton");
                 hideButton.style.display = "none"; // Hide the input temporarily
-
-                          /* Reset the step and input field
-                          step = 0;
-                          depositInput.value = ""; */
 
             }
 
