@@ -4,17 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const COLS = 3;
 
     const SYMBOLS_HOWMANY = {
-        "A": 2,
-        "B": 4,
-        "C": 6,
-        "D": 8
+        "♥": 2,
+        "♣": 4,
+        "◭": 6,
+        "✪": 8
     };
     
     const SYMBOL_MULTIPLIER = {
-        "A": 5,
-        "B": 4,
-        "C": 3,
-        "D": 2
+        "♥": 5,
+        "♣": 4,
+        "◭": 3,
+        "✪": 2
     };
     
     const depositButton = document.getElementById("depositButton");
