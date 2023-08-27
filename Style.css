@@ -1,3 +1,9 @@
+@font-face{
+    font-family: 'pixeled'; /* Specify the font family name */
+    src: url(fonts/Pixeled.ttf);
+}
+
+
 body{
     background-color: #f4547c;
     display: flex;
@@ -34,15 +40,15 @@ body{
 }
 
 .promptBox {
-    margin-top: 36px;
+    margin-top: 30px;
     height: 70px;
-    font-size: 15px; 
-    font-weight: bold;
+    font-size: 10px; 
+    font-family: Pixeled;
 }
 
 #depositInput{
     width: 142px;
-    height: 37px;
+    height: 40px;
     margin-top: 5px;
     margin-right: 14px;
     background-color: rgba(0, 0, 0, 0);
@@ -50,10 +56,15 @@ body{
 
 #depositButton{
     width: 142px;
-    height: 37px;
+    height: 45px;
     margin-top: 5px;
     margin-right: 14px;
 background-color: red;
+font-family: pixeled;
+color: white;
+text-align: center; /* Center text horizontally */
+line-height: 37px; /* Center text vertically */
+box-shadow: 0px 4px 6px rgba(10, 10, 0, 1); /* Add drop shadow */
 }
 
 #ReelsDisplay {

@@ -25,15 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let numberOfLines = 0;
     let step = 0; // Keeps track of the current step in the process
 
+    
+
     depositButton.addEventListener("click", () => {
     /*step 0 ---------------------------------------------------------------------*/
         if (step === 0) {
             depositAmount = parseInt(depositInput.value);
             if (isNaN(depositAmount) || depositAmount <= 0) {
-                promptText.innerHTML = "Invalid deposit amount, try again";
+                promptText.innerHTML = "INVALID AMOUNT, TRY AGAIN";
                 depositInput.value = ""; // Clear the input field
             } else {
-                promptText.innerHTML = "You deposited $" + depositAmount + "<br>Pick your lines, cowboy!";
+                promptText.innerHTML = "$" + depositAmount + "<br>PICK YOUR LINES, COWBOY!";
                 step = 1; // Move to the next step
                 depositInput.value = ""; // Clear the input field
             }
@@ -41,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (step === 1) {
             numberOfLines = parseInt(depositInput.value);
             if (isNaN(numberOfLines) || numberOfLines < 1 || numberOfLines > 3) {
-                promptText.textContent = "Invalid number of lines, try a number between 1 and 3";
+                promptText.innerHTML = "INVALID # OF LINES," + "<br>TRY A # BETWEEN 1-3";
                 depositInput.value = ""; // Clear the input field
             } else {
-                const linesMessage = numberOfLines === 1 ? "1 line" : numberOfLines + " lines";
-                promptText.innerHTML = linesMessage + "<br>Enter your bet per line:";
+                const linesMessage = numberOfLines === 1 ? "1 LINE" : numberOfLines + " LINES";
+                promptText.innerHTML = linesMessage + "<br>ENTER YOUR BET PER LINE:";
                 step = 2; // Move to the next step
                 depositInput.value = ""; // Clear the input field
             }
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const betPerLine = parseFloat(depositInput.value);
     
             if (isNaN(betPerLine) || betPerLine <= 0 || (betPerLine * numberOfLines) > depositAmount) {
-                promptText.textContent = "Invalid bet amount, try again";
+                promptText.textContent = "INVALID BET, TRY AGAIN";
                 depositInput.value = ""; // Clear the input field
             } else {
                 const totalBetAmount = (betPerLine * numberOfLines).toFixed(2);
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-                promptText.innerHTML = "Betting $" + totalBetAmount + "<br>CLICK 'ENTER' TO SPIN";
+                promptText.innerHTML = "BETTING $" + totalBetAmount + "<br>CLICK 'ENTER' TO SPIN";
 
                 const hideInput = document.getElementById("depositInput");
                 depositInput.style.visibility = "hidden"; // Hide the input temporarily
@@ -165,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         
 
                         depositAmount += winnings; // Update the balance
-                        promptText.innerHTML = "You won, $" + winnings + "<br>you have a balance of $" + depositAmount +"<br>Click ENTER to continue";
+                        promptText.innerHTML = "YOU WON: $" + winnings + "<br> YOUR BALANCE IS $" + depositAmount;
                         depositInput.value = "";
                         step = 4;
 /*step 4 ---------------------------------------------------------------------*/
@@ -174,32 +176,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const hideInput = document.getElementById("depositInput");
     depositInput.style.visibility = "visible"; // unhides the text input
     ReelsDisplay.innerHTML = "";
-    console.log("this is the step where I check if ur outta cash or if u wanna play again");
     if (depositAmount <= 0) {
-        promptText.innerHTML = "You're outta cash, partner!";
+        promptText.innerHTML = "YOU'RE OUTTA CASH, PARTNER!";
     } else {
-        promptText.innerHTML = "Do you wanna play again? (Y/N)";
+        promptText.innerHTML = "WANNA PLAY AGAIN (Y/N)";
         step = 4.5; 
         depositInput.value = ""; // Clear the input field
     }
 } else if (step === 4.5) {
     if (depositInput.value === "Y"||depositInput.value === "y") {
         step = 1; // Move to spin step
-        promptText.innerHTML = "Pick your lines again cowboy!";
+        promptText.innerHTML = "PICK YOUR LINES AGAIN!";
         depositInput.value = ""; // Clear the input field
         depositInput.style.visibility = "visible"; // Show the input
         depositButton.style.visibility = "visible"; // Show the button
         
 
     } else {
-        promptText.innerHTML = "See ya later, partner!" + "<br>Press enter to play again";
+        promptText.innerHTML = "SEE YA LATER, PARTNER!" + "<br>PRESS ENTER TO PLAY AGAIN";
         step = 6;
         depositInput.style.visibility = "hidden";
     }
 
         
   }  else if (step === 6) { 
-                promptText.innerHTML = "Whatcha going to deposit this time?"
+                promptText.innerHTML = "HOW MUCH ARE U GOING TO" + "<br>DEPOSIT THIS TIME?"; 
                 step = 0;
                 depositInput.style.visibility = "visible"; 
                 depositButton.style.visibility = "visible"; 
