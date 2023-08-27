@@ -25,9 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let numberOfLines = 0;
     let step = 0; // Keeps track of the current step in the process
 
+    document.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            // Trigger a click on the depositButton
+            depositButton.click();
+        }
+    });
     
 
     depositButton.addEventListener("click", () => {
+
     /*step 0 ---------------------------------------------------------------------*/
         if (step === 0) {
             depositAmount = parseInt(depositInput.value);
@@ -177,7 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
     depositInput.style.visibility = "visible"; // unhides the text input
     ReelsDisplay.innerHTML = "";
     if (depositAmount <= 0) {
-        promptText.innerHTML = "YOU'RE OUTTA CASH, PARTNER!";
+        promptText.innerHTML = "YOU'RE OUTTA CASH," + "<br> INSERT COINS:";
+        step = 0; 
     } else {
         promptText.innerHTML = "WANNA PLAY AGAIN (Y/N)";
         step = 4.5; 
@@ -200,19 +208,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         
   }  else if (step === 6) { 
-                promptText.innerHTML = "HOW MUCH ARE U GOING TO" + "<br>DEPOSIT THIS TIME?"; 
-                step = 0;
+                promptText.innerHTML = "HOW MANY LINES THIS TIME?"; 
+                step = 1;
                 depositInput.style.visibility = "visible"; 
                 depositButton.style.visibility = "visible"; 
                 depositInput.value = ""; 
             }
 
 
-
-    
-            
-
-
     });
+
+
     
 });
